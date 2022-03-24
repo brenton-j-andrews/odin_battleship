@@ -4,7 +4,8 @@ import Ship from "../ship.js";
 describe("Gameboard class testing", () => {
     let new_board;
     let testCarrier;
-    let testPatrolBoat
+    let testPatrolBoat;
+
     beforeEach(() => {
         new_board = new Gameboard(4);
         testCarrier = new Ship("carrier", 5);
@@ -51,6 +52,38 @@ describe("Gameboard class testing", () => {
     test("edge case: ship placement goes beyond horizontal edge", () => {
         new_board.placeShip(testCarrier, "y", 77);
         expect(new_board.board[77].shipType).toBe(null);
+    })
+
+    // Hit tracking tests below.
+    test("hit test: gameboard tracks ships that have been placed", () => {
+        new_board.placeShip(testCarrier, "x", 4);
+        expect(new_board.ships[0].name).toBe("carrier");
+    })
+
+    test("hit test: ship takes a hit, result is shown in ship hit array", () => {
+        new_board.placeShip(testCarrier, "x", 4);
+        new_board.receiveAttack(5)
+        new_board.receiveAttack(3)
+        expect(new_board.ships[0].hitArray.length).toBe(1);
+    })
+
+    test("hit test: missed and successful hits logged on gameboard hits array", () => {
+        new_board.placeShip(testPatrolBoat, "y", 55);
+        new_board.receiveAttack(65);
+        new_board.receiveAttack(66);
+        expect(new_board.hitIndex.length).toBe(2);
+    });
+
+    test("sinking test: will board indicate sunken ship", () => {
+        new_board.placeShip(testPatrolBoat, "x", 0);
+        new_board.receiveAttack(0);
+        new_board.receiveAttack(1);
+        expect(new_board.sunkShips).toEqual(1);
+    })
+
+    test("sinking test: board returns false if ships are still floating", () => {
+        new_board.placeShip(testPatrolBoat, "x", 0);
+        expect(new_board.areAllShipsSunk()).toEqual(false);
     })
 
 })
