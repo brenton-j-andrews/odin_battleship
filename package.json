@@ -1,0 +1,31 @@
+{
+  "name": "odin_battleship",
+  "version": "1.0.0",
+  "description": "Battleship game completed for The Odin Project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production",
+    "watch": "npx webpack --watch "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brenton-j-andrews/odin_battleship.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brenton-j-andrews/odin_battleship/issues"
+  },
+  "homepage": "https://github.com/brenton-j-andrews/odin_battleship#readme",
+  "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
+    "babel-loader": "^8.2.4",
+    "jest": "^27.5.1",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
+  }
+}
